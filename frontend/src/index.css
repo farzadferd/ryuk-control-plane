@@ -1,0 +1,191 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+@layer base {
+  :root {
+    /* Pure black and white system */
+    --background: 0 0% 3%;
+    --foreground: 0 0% 92%;
+
+    --card: 0 0% 5%;
+    --card-foreground: 0 0% 92%;
+
+    --popover: 0 0% 5%;
+    --popover-foreground: 0 0% 92%;
+
+    /* White primary - authoritative */
+    --primary: 0 0% 100%;
+    --primary-foreground: 0 0% 0%;
+
+    --secondary: 0 0% 8%;
+    --secondary-foreground: 0 0% 75%;
+
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 50%;
+
+    --accent: 0 0% 15%;
+    --accent-foreground: 0 0% 92%;
+
+    /* Subtle semantic colors - whispers, not shouts */
+    --allowed: 120 30% 40%;
+    --allowed-foreground: 120 30% 85%;
+    --denied: 0 40% 45%;
+    --denied-foreground: 0 40% 85%;
+    --warning: 45 50% 45%;
+    --warning-foreground: 45 50% 85%;
+
+    --destructive: 0 40% 45%;
+    --destructive-foreground: 0 0% 92%;
+
+    --border: 0 0% 15%;
+    --input: 0 0% 10%;
+    --ring: 0 0% 30%;
+
+    --radius: 0.25rem;
+
+    /* Sidebar - even darker */
+    --sidebar-background: 0 0% 2%;
+    --sidebar-foreground: 0 0% 55%;
+    --sidebar-primary: 0 0% 100%;
+    --sidebar-primary-foreground: 0 0% 0%;
+    --sidebar-accent: 0 0% 8%;
+    --sidebar-accent-foreground: 0 0% 92%;
+    --sidebar-border: 0 0% 10%;
+    --sidebar-ring: 0 0% 30%;
+  }
+}
+
+@layer base {
+  * {
+    border-color: hsl(var(--border));
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+  }
+
+  code, pre, .font-mono {
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  /* Custom scrollbar - barely visible */
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: hsl(0 0% 20%);
+    border-radius: 2px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(0 0% 30%);
+  }
+
+  ::selection {
+    background: hsl(0 0% 25%);
+    color: hsl(0 0% 100%);
+  }
+}
+
+@layer components {
+  /* System message style */
+  .system-text {
+    @apply font-mono text-sm leading-relaxed tracking-tight;
+    letter-spacing: -0.01em;
+  }
+
+  /* Subtle status indicators */
+  .status-allowed {
+    @apply text-[hsl(120_30%_55%)];
+  }
+
+  .status-denied {
+    @apply text-[hsl(0_40%_55%)];
+  }
+
+  .status-warning {
+    @apply text-[hsl(45_50%_55%)];
+  }
+
+  /* Quiet borders */
+  .border-subtle {
+    border-color: hsl(0 0% 12%);
+  }
+
+  /* Floating panel effect */
+  .panel-float {
+    @apply bg-card border-l border-border;
+    box-shadow: -20px 0 60px -20px hsl(0 0% 0% / 0.5);
+  }
+
+  /* Terminal cursor blink */
+  .cursor-blink::after {
+    content: '▊';
+    animation: blink 1.2s step-end infinite;
+    @apply text-foreground/60 ml-0.5;
+  }
+
+  @keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+  }
+
+  /* Scan line effect - very subtle */
+  .scanlines {
+    position: relative;
+  }
+
+  .scanlines::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      hsl(0 0% 0% / 0.03) 2px,
+      hsl(0 0% 0% / 0.03) 4px
+    );
+    pointer-events: none;
+  }
+
+  /* Focus glow */
+  .focus-glow:focus {
+    box-shadow: 0 0 0 1px hsl(0 0% 25%);
+  }
+
+  /* Large system typography */
+  .display-system {
+    @apply text-4xl font-semibold tracking-tight;
+    letter-spacing: -0.02em;
+  }
+
+  .label-system {
+    @apply text-[10px] uppercase tracking-[0.2em] text-muted-foreground;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Fade edges */
+  .fade-y {
+    mask-image: linear-gradient(to bottom, transparent, black 20px, black calc(100% - 20px), transparent);
+  }
+
+  .fade-x {
+    mask-image: linear-gradient(to right, transparent, black 20px, black calc(100% - 20px), transparent);
+  }
+}
