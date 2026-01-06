@@ -1,0 +1,49 @@
+# ----------------------
+# Logs
+# ----------------------
+logs/
+*.log
+
+# ----------------------
+# Python
+# ----------------------
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.env
+.venv
+venv/
+
+# ----------------------
+# Node / Frontend
+# ----------------------
+node_modules/
+dist/
+dist-ssr/
+.next/
+out/
+*.local
+
+# ----------------------
+# Editor / OS
+# ----------------------
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+
+# ----------------------
+# Coverage / Reports
+# ----------------------
+htmlcov/
+.coverage
+coverage.xml
+
+# ----------------------
+# Docker
+# ----------------------
+docker-compose.override.yml
