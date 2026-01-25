@@ -15,6 +15,7 @@ import AuditCompliance from "./pages/admin/AuditCompliance";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 import React from "react";
+import UsersAccess from "./pages/admin/UsersAccess.tsx";
 
 const queryClient = new QueryClient();
 
@@ -36,6 +37,7 @@ const App = () => (
           <Route path="/docs" element={<SystemLayout><DocsPage /></SystemLayout>} />
           <Route path="/admin" element={<SystemLayout><SandboxProvisioning /></SystemLayout>} />
           <Route path="/admin/policies" element={<SystemLayout><PolicyEditor /></SystemLayout>} />
+          <Route path="/admin/users" element={<SystemLayout><UsersAccess /></SystemLayout>} />
           <Route path="/admin/audit" element={<SystemLayout><AuditCompliance /></SystemLayout>} />
           <Route path="*" element={<NotFound />} />
         </Routes>

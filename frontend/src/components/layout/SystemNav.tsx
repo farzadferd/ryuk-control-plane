@@ -13,7 +13,8 @@ const routes = [
 const adminRoutes = [
   { path: "/admin", label: "PROVISION", code: "A1" },
   { path: "/admin/policies", label: "POLICY", code: "A2" },
-  { path: "/admin/audit", label: "AUDIT", code: "A3" },
+  { path: "/admin/users", label: "ACCESS", code: "A3" },
+  { path: "/admin/audit", label: "AUDIT", code: "A4" },
 ];
 
 export function SystemNav() {
