@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { cn } from "../lib/utils";
-import React from "react";
+import { cn } from "@/lib/utils";
 
 type ResourceType = "table" | "api" | "storage" | "service";
 type Permission = "read" | "write" | "none";

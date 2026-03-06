@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Input } from "../components/ui/input";
-import { Button } from "../components/ui/button";
-import React from "react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { useAuth, UserRole } from "@/contexts/AuthContext";
 
 export default function Auth() {
   const navigate = useNavigate();
+  const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState<UserRole>("sandbox_user");
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -16,13 +18,12 @@ export default function Auth() {
     setError(null);
     setIsLoading(true);
 
-    // Simulate authentication delay
     setTimeout(() => {
       if (!email || !password) {
         setError("Authentication failed.");
         setIsLoading(false);
       } else {
-        // Accept any credentials and navigate to dashboard
+        login(email, role);
         navigate("/dashboard");
       }
     }, 800);
@@ -30,7 +31,6 @@ export default function Auth() {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      {/* Main content - centered */}
       <div className="flex-1 flex items-center justify-center px-6">
         <div className="w-full max-w-md">
           {/* Header */}
@@ -80,16 +80,45 @@ export default function Auth() {
                   autoComplete="current-password"
                 />
               </div>
+
+              {/* Role Selector */}
+              <div>
+                <label className="block text-xs font-mono text-muted-foreground mb-2 tracking-wide">
+                  ROLE
+                </label>
+                <div className="flex gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setRole("sandbox_user")}
+                    className={`flex-1 h-12 border font-mono text-sm tracking-wide transition-colors ${
+                      role === "sandbox_user"
+                        ? "border-foreground text-foreground bg-foreground/5"
+                        : "border-border/50 text-muted-foreground hover:border-muted-foreground"
+                    }`}
+                  >
+                    SANDBOX_USER
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setRole("admin")}
+                    className={`flex-1 h-12 border font-mono text-sm tracking-wide transition-colors ${
+                      role === "admin"
+                        ? "border-foreground text-foreground bg-foreground/5"
+                        : "border-border/50 text-muted-foreground hover:border-muted-foreground"
+                    }`}
+                  >
+                    ADMIN
+                  </button>
+                </div>
+              </div>
             </div>
 
-            {/* Error State */}
             {error && (
               <div className="py-3 border-l-2 border-destructive pl-4">
                 <p className="text-xs font-mono text-destructive">{error}</p>
               </div>
             )}
 
-            {/* Primary Action */}
             <Button
               type="submit"
               disabled={isLoading}
@@ -99,7 +128,6 @@ export default function Auth() {
             </Button>
           </form>
 
-          {/* Secondary Links */}
           <div className="mt-10 flex flex-col items-center gap-3">
             <button className="text-xs font-mono text-muted-foreground/60 hover:text-muted-foreground transition-colors tracking-wide">
               Accept invite
@@ -111,7 +139,6 @@ export default function Auth() {
         </div>
       </div>
 
-      {/* Footer System Warnings */}
       <footer className="py-8 px-6">
         <div className="max-w-md mx-auto">
           <div className="border-t border-border/30 pt-6 space-y-2">

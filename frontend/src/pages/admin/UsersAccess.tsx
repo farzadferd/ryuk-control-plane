@@ -1,7 +1,8 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Copy, Link2, UserPlus, Ban, Eye, Shield, Clock, AlertTriangle } from "lucide-react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../components/ui/tabs";
-import { Badge } from "../../components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Badge } from "@/components/ui/badge";
 import {
   Dialog,
   DialogContent,
@@ -10,17 +11,17 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "../../../src/components/ui/dialog";
+} from "@/components/ui/dialog";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../../components/ui/select";
-import { Input } from "../../components/ui/input";
-import { Label } from "../../components/ui/label";
-import { Textarea } from "../../../src/components/ui/textarea";
+} from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 
 interface PendingInvite {
@@ -113,6 +114,7 @@ const ACTIVE_USERS: ActiveUser[] = [
 ];
 
 export default function UsersAccess() {
+  const navigate = useNavigate();
   const [inviteModalOpen, setInviteModalOpen] = useState(false);
   const [confirmationOpen, setConfirmationOpen] = useState(false);
   const [inviteEmail, setInviteEmail] = useState("");
@@ -453,7 +455,12 @@ export default function UsersAccess() {
                   key={user.id}
                   className="grid grid-cols-7 gap-4 py-4 border-t border-border text-sm group hover:bg-secondary/30 -mx-4 px-4 items-center"
                 >
-                  <span className="font-medium text-foreground">{user.name}</span>
+                  <span
+                    className="font-medium text-foreground cursor-pointer hover:underline"
+                    onClick={() => navigate(`/admin/users/${user.id}`)}
+                  >
+                    {user.name}
+                  </span>
                   <span className="font-mono text-muted-foreground truncate">{user.email}</span>
                   <span>
                     <Badge 
